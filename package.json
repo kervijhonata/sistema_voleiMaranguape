@@ -1,0 +1,18 @@
+{
+  "name": "sistema_volei",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "nodemon app.js",
+    "sass-compile-all": "sass --watch public/scss:public/css && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-hbs": "^2.4.0"
+  }
+}
