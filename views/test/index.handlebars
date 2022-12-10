@@ -1,0 +1,25 @@
+<div class="container text-light">
+
+    {{>_msgTest}}
+
+    <h1 class="mb-4">Handlebars flash</h1>
+
+    <form action="/test" method="post" class="card text-dark">
+        <div class="card-body">
+            <label for="text" class="mb-2">Text</label>
+            <input type="text" name="text" id="" class="form-control">
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success form-control">ok</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row mt-4">
+        {{#if formData}}
+            {{formData.name}}
+        {{else}}
+            awaiting
+        {{/if}}
+    </div>
+
+</div>

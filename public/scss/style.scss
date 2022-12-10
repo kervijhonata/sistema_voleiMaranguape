@@ -1,0 +1,171 @@
+* {
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Inter&family=Montserrat&family=Pacifico&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+main {
+    min-height: 80vh;
+    // padding: 60px;
+}
+
+footer {
+    padding: 12px 20px;
+    background-color: rgb(112, 112, 112);
+    font-family: monospace;
+    font-size: 10pt;
+    color: rgb(235, 235, 235);
+
+    p {
+        margin: 0;
+    }
+
+    #dev-url {
+        color: white;
+    }
+}
+
+.header {
+    // background-color: rgb(58, 58, 58) !important;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .title-area {
+        display: flex;
+        flex-direction: column;
+        color: white;
+    }
+
+    .header-title {
+        font-size: 14pt;
+        font-weight: bold;
+    }
+    .header-subtitle {
+        font-size: 18pt;
+        margin-top: -26px;
+        font-family: 'Grand Hotel', cursive;
+    }
+
+}
+
+.navbar-divisor {
+    color: white;
+}
+.carousel {
+    width: 100%;
+    background-color: blue;
+    display: flex;
+    flex-direction: row;
+
+    .carousel-item {
+        width: 100%;
+        background-color: purple;
+        display: flex;
+        justify-content: center;
+    }
+    .carousel-image {
+        width: 200px;
+    }
+}
+
+// Bootstrap Classes :: Override
+.container {
+    padding: 60px 60px;
+}
+
+// Index
+#heading {
+    width: 100%;
+    display: flex;
+    background-color: rgb(212, 212, 212);
+    justify-content: center;
+    
+    #heading-cover {
+        width: 60%;
+    }
+}
+
+#carousel {
+    width: 100%;
+    display: flex;
+    background-color: rgb(212, 212, 212);
+    justify-content: center;
+    align-items: center;
+    
+    .left-arrow,
+    .right-arrow {
+        position: absolute;
+        min-width: 46px;
+        min-height: 46px;
+        padding: 6px;
+        border-radius: 100%;
+        text-align: center;
+        font-weight: bold;
+        border: none;
+        background-color: var(--bs-yellow);
+        z-index: 10;
+        opacity: 30%;
+        transition: .2s ease-in-out opacity;
+        
+        &:hover {
+            background-color: var(--bs-orange);
+            opacity: 100%;
+        }
+    }
+
+    .left-arrow {
+        left: 20px;
+    }
+    .right-arrow {
+        right: 20px;
+    }
+
+    #image {
+        width: 60%;
+    }
+}
+
+#patrocinadores {
+    
+    #galeria {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px 0px;
+
+        img {
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .container {
+        padding: 40px 30px;
+    }
+
+    .header {
+        // background-color: red !important;
+        .title-area {
+            width: 50%;
+        }
+        .header-title {
+            font-size: medium;
+        }
+        .header-subtitle {
+            font-size: medium;
+        }
+    }
+
+    #patrocinadores {
+        #galeria {
+            gap: 6px 0px;
+            grid-template-columns: repeat(2, 1fr);
+            
+        }
+    }
+}

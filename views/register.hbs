@@ -1,0 +1,78 @@
+{{>_header}}
+<div class="container">
+    
+    {{>_messages}}
+
+    {{#each formErrors}}
+        <div class="alert alert-danger">{{text}}</div>
+    {{/each}}
+    
+    <h1 class="mb-4">Crie sua Conta</h1>
+    <form action="/register" class="card" method="post">
+        <div class="card-body">
+            <h3 class="mb-4 mt-4 text-center">Preencha seus dados</h3>
+            <div class="mb-2">
+                <label for="user_name">Nome Completo:</label>
+                <input type="text" class="form-control mb-2 mt-1" name="user_name" value="{{userData.name}}" id="user_name-input" minlength="2" maxlength="120" required>
+            </div>
+            
+            <div class="mb-4">
+                <label for="user_birthday">Data de Nascimento:</label>
+                <input type="date" name="user_birthday" class="form-control mb-2 mt-1" value="{{userData.birthday}}" id="user_birthday-input" required>
+            </div>
+
+            <div class="mb-4">
+                <p>Gênero:</p>
+                <div class="form-check">
+                    <label for="user_gender-radio-male">Masculino</label>
+                    <input type="radio" name="user_gender" id="user_gender-radio-male" class="form-check-input" value="masculino" required>
+                </div>
+                <div class="form-check">
+                    <label for="user_gender-radio-female">Feminino</label>
+                    <input type="radio" name="user_gender" id="user_gender-radio-female" class="form-check-input" value="feminino" required>
+                </div>
+                <div class="form-check">
+                    <label for="user_gender-radio-nb">Não Binário</label>
+                    <input type="radio" name="user_gender" id="user_gender-radio-nb" class="form-check-input" value="não binário" required>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="user_email">Email:</label>
+                <input type="email" class="form-control mb-2 mt-1" name="user_email" value="{{userData.email}}" id="user_email-input" minlength="8" maxlength="120" required>
+            </div>
+
+            <div class="mb-2">
+                <label for="user_password">Senha:</label>
+                <input type="password" name="user_password" class="form-control mb-2 mt-1" name="user_password" id="user_password-input" minlength="8" maxlength="30" required>
+            </div>
+
+            <div class="mb-2">
+                <label for="user_password">Repita sua senha:</label>
+                <input type="password" name="user_password" class="form-control mb-2 mt-1" name="user_password" id="user_password-input" minlength="8" maxlength="30" required>
+                <p class="form-text" id="password-warn"></p>
+            </div>
+
+            {{!-- <hr> --}}
+            <button class="btn btn-success mt-2" type="submit">Cadastrar</button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    {{#if userData}}
+
+    <p><strong>name</strong>: {{userData.name}}</p>
+    <p><strong>birthday</strong>: {{userData.birthday}}</p>
+    <p><strong>gender</strong>: {{userData.gender}}</p>
+    <p><strong>email</strong>: {{userData.email}}</p>
+    <p><strong>password</strong>: {{userData.password}}</p>
+
+    {{else}}
+
+    <p>Aguardando Envio...</p>
+
+    {{/if}}
+</div>
+
+{{>_footer}}

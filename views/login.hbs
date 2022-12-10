@@ -1,0 +1,22 @@
+{{>_header}}
+<main>
+    <div class="container">
+        <h1 class="mb-4">Fazer Login</h1>
+        <div class="card">
+            <form method="post" action="#" class="card-body">
+                <h3 class="mb-4 mt-4 text-center">Preencha seus dados</h3>
+                <label for="user_email">Email de Usuário:</label>
+                <input type="email" class="form-control mb-2 mt-1" name="user_email" id="user_email-form" required>
+                <label for="user_password">Senha:</label>
+                <input type="password" class="form-control mb-2 mt-1" name="user_password" id="user_password-form" required>
+                {{!-- <hr> --}}
+                <button class="btn btn-success mt-2">Entrar</button>
+                <hr>
+                <p class="mt-4">Ainda não é cadastrado? <a href="/register">Crie sua Conta!</a></p>
+                <p>Não consegue acessar o sistema? Tente a <a href="/passwordrecovery">Recuperação de senha</a>.</p>
+                
+            </form>
+        </div>
+    </div>
+</main>
+{{>_footer}}

@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Inter&family=Montserrat&family=Pacifico&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+main {
+  min-height: 80vh;
+}
+
+footer {
+  padding: 12px 20px;
+  background-color: #707070;
+  font-family: monospace;
+  font-size: 10pt;
+  color: #ebebeb;
+}
+footer p {
+  margin: 0;
+}
+footer #dev-url {
+  color: white;
+}
+
+.header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.header .title-area {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.header .header-title {
+  font-size: 14pt;
+  font-weight: bold;
+}
+.header .header-subtitle {
+  font-size: 18pt;
+  margin-top: -26px;
+  font-family: "Grand Hotel", cursive;
+}
+
+.navbar-divisor {
+  color: white;
+}
+
+.carousel {
+  width: 100%;
+  background-color: blue;
+  display: flex;
+  flex-direction: row;
+}
+.carousel .carousel-item {
+  width: 100%;
+  background-color: purple;
+  display: flex;
+  justify-content: center;
+}
+.carousel .carousel-image {
+  width: 200px;
+}
+
+.container {
+  padding: 60px 60px;
+}
+
+#heading {
+  width: 100%;
+  display: flex;
+  background-color: #d4d4d4;
+  justify-content: center;
+}
+#heading #heading-cover {
+  width: 60%;
+}
+
+#carousel {
+  width: 100%;
+  display: flex;
+  background-color: #d4d4d4;
+  justify-content: center;
+  align-items: center;
+}
+#carousel .left-arrow,
+#carousel .right-arrow {
+  position: absolute;
+  min-width: 46px;
+  min-height: 46px;
+  padding: 6px;
+  border-radius: 100%;
+  text-align: center;
+  font-weight: bold;
+  border: none;
+  background-color: var(--bs-yellow);
+  z-index: 10;
+  opacity: 30%;
+  transition: 0.2s ease-in-out opacity;
+}
+#carousel .left-arrow:hover,
+#carousel .right-arrow:hover {
+  background-color: var(--bs-orange);
+  opacity: 100%;
+}
+#carousel .left-arrow {
+  left: 20px;
+}
+#carousel .right-arrow {
+  right: 20px;
+}
+#carousel #image {
+  width: 60%;
+}
+
+#patrocinadores #galeria {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px 0px;
+}
+#patrocinadores #galeria img {
+  width: 100%;
+}
+
+@media screen and (max-width: 720px) {
+  .container {
+    padding: 40px 30px;
+  }
+
+  .header .title-area {
+    width: 50%;
+  }
+  .header .header-title {
+    font-size: medium;
+  }
+  .header .header-subtitle {
+    font-size: medium;
+  }
+
+  #patrocinadores #galeria {
+    gap: 6px 0px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
