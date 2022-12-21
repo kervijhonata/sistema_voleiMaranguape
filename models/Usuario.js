@@ -24,9 +24,9 @@ const Usuario = new Schema({
         type: String,
         required: true,
     },
-    admin: {
-        type: Boolean,
-        default: false
+    nivel_usuario: {
+        type: String,
+        default: "usuario"
     }
 })
 
