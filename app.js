@@ -6,8 +6,8 @@ const path = require("path")
 const mongoose = require("mongoose")
 const session = require("express-session")
 const flash = require("connect-flash")
-// const passport = require("passport")
 const bcrypt = require("bcrypt")
+const passport = require('passport')
 
 
 // Server Info
@@ -17,11 +17,13 @@ const SERVER_INFO = {
     HOST: "localhost"
 }
 
-// Passport
+// Requires
+    // Passport
+    require("./config/auth")(passport)
 
-// Models
-require("./models/Usuario")
-const Usuario = mongoose.model("usuarios")
+    // Models
+    require("./models/Usuario")
+    const Usuario = mongoose.model("usuarios")
 
 // Configs
     // Session
@@ -29,10 +31,12 @@ const Usuario = mongoose.model("usuarios")
         secret: 'cursodenode',
         resave: true,
         saveUninitialized: true,
-        cookie: { maxAge: 60000 }
+        // cookie: { maxAge: 60000 }
     }))
 
     // Passport
+    app.use(passport.initialize())
+    app.use(passport.session())
 
     // Flash
     app.use(flash())
@@ -43,6 +47,7 @@ const Usuario = mongoose.model("usuarios")
         res.locals.successMessage = req.flash('successMessage')
         res.locals.errorMessage = req.flash('errorMessage')
         res.locals.teste = req.flash('teste')
+        res.locals.user = req.user || null
         next()
     })
     
@@ -76,6 +81,22 @@ const Usuario = mongoose.model("usuarios")
 
 // Routes
 app.get("/", (req, res, next) => {
+    if(req.user) {
+        
+        let userName = req.user.nome.split(" ")
+
+        res.render("index", {
+            user: {
+                nome: userName[0],
+                sobrenome: userName[1]
+            }
+        })
+    }else{
+        res.render("index")
+    }
+})
+
+app.get("/home", (req, res, next) => {
     res.render("index")
 })
 
@@ -83,12 +104,26 @@ app.get("/login", (req, res) => {
     res.render("login")
 })
 
-app.post("/login", (req, res) => {
-    res.send("Validando usuário")
+app.post("/login", (req, res, next) => {
+    passport.authenticate("local", {
+        successRedirect: "/",
+        successFlash: true,
+        failureRedirect: "/login",
+        failureFlash: true
+    })(req, res, next)
 })
 
-app.get("/logout", (req, res) => {
-    res.send("Logout")
+app.get("/logout", (req, res, next) => {
+
+    req.logout({keepSessionInfo: false}, (err) => {
+        if(err) {
+            return next(err)
+        }
+
+        req.flash("successMessage", "Deslogado com sucesso")
+        res.redirect("/")
+
+    })
 })
 
 app.get("/register", (req, res) => {
@@ -208,9 +243,11 @@ app.use("/test", test)
 const portal = require("./routes/portal")
 app.use("/portal", portal)
 
-// const user = require("./routes/user")
-// app.use("/user", user)
+const user = require("./routes/user")
+app.use("/user", user)
 
+const atleta = require("./routes/atleta")
+app.use("/atleta", atleta)
 
 // Server Listener
 app.listen(SERVER_INFO.PORT, () => {

@@ -132,15 +132,17 @@ footer {
 
 #patrocinadores {
     
-    #galeria {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px 0px;
+    empty-cells: hide;
+    // #galeria {
+    //     display: grid;
+    //     grid-template-columns: repeat(4, 1fr);
+    //     gap: 20px 0px;
 
-        img {
-            width: 100%;
-        }
-    }
+    //     img {
+    //         width: 100%;
+    //     }
+    // }
+
 }
 
 @media screen and (max-width: 720px) {
@@ -167,5 +169,60 @@ footer {
             grid-template-columns: repeat(2, 1fr);
             
         }
+    }
+}
+
+// General Classes
+
+// Jumbotron Classes
+.jumbotron {
+    padding: 60px 60px 40px 60px;
+    border-radius: 8px;
+}
+
+// Image Gallery
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(max(4), 1fr);
+    gap: 12px;
+
+    img {
+        width: 100%;
+        border-radius: 3px;
+    }
+
+    .gallery-frame {
+        width: 100%;
+    }
+}
+
+.image-magnify img {
+    transform: scale(1);
+}
+.image-magnify img:hover {
+    transform: scale(1.1);
+    transition: ease-in-out .4s transform;
+}
+
+// Background Colors
+.bg-orangered {
+    background: orangered;
+}
+
+// Margins
+.mb-6 {
+    margin-bottom: 60px !important;
+}
+.mt-6 {
+    margin-top: 60px !important;
+}
+
+// Printing Layout
+@media print {
+    // Esconder elementos
+    #body-header,
+    #body-footer,
+    #gerenciar-fichas {
+        display: none;
     }
 }

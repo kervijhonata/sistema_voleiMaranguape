@@ -19,6 +19,8 @@
     "express-hbs": "^2.4.0",
     "express-session": "^1.17.3",
     "mongoose": "^6.8.0",
-    "passport": "^0.6.0"
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "wkhtmltopdf": "^0.4.0"
   }
 }

@@ -1,0 +1,187 @@
+{{>_header}}
+
+<div class="container">
+
+    <div class="row mb-4">
+        <h1>Ficha do Atleta</h1>
+    </div>
+
+    <form action="/user/atleta/cadastrar" method="post" class="card">
+        <div class="card-body">
+            <h2 class="text-center mt-2 mb-4">Preencha seus dados</h2>
+            
+            <h3>Dados pessoais</h3>
+            <div class="mb-2" aria-required="true">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" class="form-control" value="{{user.nome_completo}}" required>
+            </div>
+            <div class="mb-2">
+                <div class="col">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" name="cpf" class="form-control" required>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="identidade">Identidade:</label>
+                    <input type="text" name="identidade" class="form-control" required>
+                </div>
+                <div class="col">
+                    <label for="expedidor_identidade">Orgão Expedidor:</label>
+                    <input type="text" name="expedidor_identidade" class="form-control" required>
+                </div>
+                <div class="col">
+                    <label for="emissao_identidade">Data de Emissão:</label>
+                    <input type="date" name="emissao_identidade" class="form-control" required>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="reservista">Certificado de reservista:</label>
+                    <input type="text" name="reservista" id="" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="expedidor_reservista">Orgão expedidor:</label>
+                    <input type="text" name="expedidor_reservista" id="" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="data_nascimento">Data de nascimento:</label>
+                    <input type="date" name="data_nascimento" id="" class="form-control" required>
+                </div>
+                <div class="col">
+                <label for="genero">Gênero:</label>
+                <select name="genero" id="" class="form-select" required>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                    <option value="outro">Outro</option>
+                </select>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="naturalidade">Naturalidade:</label>
+                    <input type="text" name="naturalidade" id="" class="form-control" placeholder="Ex: Maranguape, CEARÁ" required>
+                </div>
+                <div class="col">
+                    <label for="nacionalidade">Nacionalidade:</label>
+                    <input type="text" name="nacionalidade" id="" class="form-control" placeholder="Ex: Brasileiro" required>
+                </div>
+            </div>
+
+            <hr>
+            <div class="mb-2">
+                <h3>Escolaridade</h3>
+                <div class="row">
+                    <div class="col">
+                        <label for="grau_ensino">Escolaridade / Grau de ensino:</label>
+                        <select name="grau_ensino" id="" class="form-select" required>
+                            <option value="fundamental_cursando">Ensino fundamental (Cursando)</option>
+                            <option value="fundamental_completo">Ensino fundamental (Completo)</option>
+                            <option value="fundamental_incompleto">Ensino fundamental  (Incompleto)</option>
+                            <option value="medio_cursando">Ensino médio (Cursando)</option>
+                            <option value="medio_completo">Ensino médio (Completo)</option>
+                            <option value="medio_incompleto">Ensino médio  (Incompleto)</option>
+                            <option value="superior_cursando">Ensino superior (Cursando)</option>
+                            <option value="superior_completo">Ensino superior (Completo)</option>
+                            <option value="superior_incompleto">Ensino superior  (Incompleto)</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="instituicao_ensino">Instituição de ensino:</label>
+                        <input type="text" name="instituicao_ensino" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <h3>Filiação</h3>
+            <div class="mb-2">
+                <label for="pai">Nome do Pai:</label>
+                <input type="text" name="pai" class="form-control" required>
+            </div>
+            <div class="mb-2">
+                <label for="mae">Nome da Mãe:</label>
+                <input type="text" name="mae" class="form-control" required>
+            </div>
+            <hr>
+
+            <h3>Endereço residencial</h3>
+            <div class="mb-2">
+                <label for="endereco">Endereço (atual):</label>
+                <input type="text" name="endereco" class="form-control" required>
+            </div>
+            <div class="mb-2">
+                <label for="bairro">Bairro:</label>
+                <input type="text" name="bairro" class="form-control" required>
+            </div>
+            <div class="mb-2">
+                <label for="cidade">Cidade:</label>
+                <input type="text" name="cidade" class="form-control" required>
+            </div>
+            <div class="mb-2">
+                <label for="estado">Estado:</label>
+                <input type="text" name="estado" class="form-control" required>
+            </div>
+            <div class="mb-2">
+                <label for="cep">CEP:</label>
+                <input type="text" name="cep" class="form-control" required>
+            </div>
+            <hr>
+
+            <h3>Contato</h3>
+            <div class="mb-2">
+                <label for="email">Email:</label>
+                <input type="email" name="email" class="form-control" value="{{user.email}}" required>
+            </div>
+            <div class="mb-2">
+                <label for="telefone">Telefone:</label>
+                <input type="text" name="telefone" class="form-control" required>
+            </div>
+            <div class="mb-2">
+                <label for="celular">Celular:</label>
+                <input type="text" name="celular" class="form-control">
+            </div>
+            <div class="mb-2 row">
+                <div class="col">
+                    <label for="tipo_contato_extra">Outras formas de contato:</label>
+                    <select name="tipo_contato_extra" id="" class="form-select" required>
+                        <option value="whatsapp">Whatsapp</option>
+                        <option value="telegram">Telegram</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="twitter">Twitter</option>
+                        <option value="telefone">Telefone</option>
+                        <option value="celular">Celular</option>
+                        <option value="whatsapp">Bip</option>
+                        <option value="whatsapp">Outro</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="contato_extra">@seu_perfil, número ou link: </label>
+                    <input type="text" name="contato_extra" class="form-control" required>
+                </div>
+            </div>
+            <hr>
+            <div class="mt-2 mb-4">
+                <h3>Termo de autorização do responsável legal</h3>
+                <div class="form-check">
+                    <input type="checkbox" name="permissao_parental" id="" class="form-check-input" required> 
+                    <label for="permissao_parental" class="form-check-label">Declaro que os dados preenchidos acima estão dispostos sob autorização da pessoa responsável ou por representante legal do(a) atleta.</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="permissao_inscricao" id="" class="form-check-input" required> 
+                    <label for="permissao_inscricao" class="form-check-label">Autorizo a inscrição acima solicitada.</label>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+{{>_footer}}

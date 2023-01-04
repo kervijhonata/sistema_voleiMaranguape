@@ -26,7 +26,7 @@ const Usuario = new Schema({
     },
     nivel_usuario: {
         type: String,
-        default: "usuario"
+        default: "usuario" // "[usuario, atleta, admin]"
     }
 })
 
