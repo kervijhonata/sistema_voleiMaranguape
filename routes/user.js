@@ -18,13 +18,14 @@ router.get("/", isUserAuth, (req, res) => {
     res.redirect("/user/panel")
 })
 
+
 router.get("/panel", isUserAuth, (req, res) => {
 
     let userName = req.user.nome.split(" ")
     let dataNascimento = req.user.data_nascimento.getDate() + "/" + req.user.data_nascimento.getMonth() + "/" + req.user.data_nascimento.getFullYear()
-    
+
     res.render("user/panel", {
-        headTitle: "Seu Painel | ",
+        headTitle: "Painel do Usuário | ",
         user: {
             nome_completo: req.user.nome,
             primeiro_nome: userName[0],
@@ -32,8 +33,7 @@ router.get("/panel", isUserAuth, (req, res) => {
             id: req.user._id,
             data_nascimento: dataNascimento,
             email: req.user.email,
-            genero: req.user.genero,
-            eAtleta: true
+            genero: req.user.genero
         }
     })
     

@@ -88,7 +88,18 @@ app.get("/", (req, res, next) => {
         res.render("index", {
             user: {
                 nome: userName[0],
-                sobrenome: userName[1]
+                sobrenome: userName[1],
+                nivel_usuario: function() {
+                    if(req.user.nivel_usuario == "usuario"){
+                        return "user"
+                    }
+                    if(req.user.nivel_usuario == "atleta"){
+                        return "atleta"
+                    }
+                    if(req.user.nivel_usuario == "admin"){
+                        return "admin"
+                    }
+                }
             }
         })
     }else{
@@ -148,10 +159,10 @@ app.post("/register", (req, res) => {
     // Validação dos Dados
         // Nome
         if(typeof formData.name == undefined || formData.name == "" || formData.name == null || formData.name == false) {
-            formErrors.push({text: "NOME não pode ser vazio"})
+            formErrors.push({text: "O campo nome não pode ser vazio"})
         }
         if(typeof formData.name.length < 2 || formData.name.length > 120){
-            formErrors.push({text: "Insira um NOME entre 2 e 120 caracteres"})
+            formErrors.push({text: "Insira um nome entre 2 e 120 caracteres"})
         }
 
         // Data de Nascimento
@@ -169,21 +180,21 @@ app.post("/register", (req, res) => {
         
         // Email
         if(typeof formData.email == undefined || formData.email == "" || formData.email == null || formData.email == false) {
-            formErrors.push({text: "Insira seu Email"})
+            formErrors.push({text: "Insira seu email"})
         }
         if(formData.email.length < 8 || formData.email.length > 120){
-            formErrors.push({text: "Insira um Email entre 8 e 120 caracteres"})
+            formErrors.push({text: "Insira um email entre 8 e 120 caracteres"})
         }
         
         // Senha
         if(typeof formData.password == undefined || formData.password == "" || formData.password == null || formData.password == false) {
-            formErrors.push({text: "Insira sua Senha"})
+            formErrors.push({text: "Insira sua senha"})
         }
         if(formData.password[0].length < 8 || formData.password[0].length > 30){
-            formErrors.push({text: "Insira uma Senha entre 8 e 30 caracteres"})
+            formErrors.push({text: "Insira uma senha entre 8 e 30 caracteres"})
         }
         if(formData.password[0] !== formData.password[1]){
-            formErrors.push({text: "Ambas as Senhas não coincidem, corrija e tente novamente"})
+            formErrors.push({text: "As senhas estão diferentes, corrija e tente novamente"})
         }
 
     // Erros detectados
@@ -195,16 +206,23 @@ app.post("/register", (req, res) => {
     }else{
 
         Usuario.findOne({email: formData.email}).lean().then((usuario) => {
+            
             if(usuario) {
-                req.flash("errorMessage", "Este email já está em uso, tente outro Email")
-                res.render("/usuarios/registro")
+
+                formErrors.push({text: "Esta conta de email já está em uso, tente outro email!"})
+                res.render("register", {
+                    formErrors: formErrors,
+                    userData: formData
+                })
+
             }else{
         
                 const newUser = new Usuario({
                     nome: formData.name,
                     data_nascimento: formData.birthday,
                     genero: formData.gender,
-                    email: formData.email
+                    email: formData.email,
+                    nivel_usuario: "usuario"
                 })
 
                 bcrypt.genSalt(10, (error, salt) => {
@@ -219,7 +237,7 @@ app.post("/register", (req, res) => {
                                 res.redirect("/")
                             }).catch(err => {
                                 req.flash("errorMessage", "Houve um erro ao criar sua conta de Usuário, por favor, entre em contato com o administrador do sistema")
-                                res.redirect("/")
+                                res.redirect("user/register")
                             }) 
                         }
                     })
@@ -229,16 +247,12 @@ app.post("/register", (req, res) => {
             req.flash("errorMessage", "Houve um erro ao criar sua conta de Usuário, por favor, entre em contato com o administrador do sistema")
             res.redirect("/")
         })
-
-
-        req.flash("successMessage", "Usuário cadastrado com sucesso!")
-        res.redirect("/register")
     }
 })
 
 // External routes
-const test = require("./routes/test")
-app.use("/test", test)
+const teste = require("./routes/teste")
+app.use("/teste", teste)
 
 const portal = require("./routes/portal")
 app.use("/portal", portal)

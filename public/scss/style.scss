@@ -13,49 +13,36 @@ main {
     // padding: 60px;
 }
 
-footer {
-    padding: 12px 20px;
-    background-color: rgb(112, 112, 112);
-    font-family: monospace;
-    font-size: 10pt;
-    color: rgb(235, 235, 235);
+.header {
 
     p {
         margin: 0;
     }
-
-    #dev-url {
-        color: white;
-    }
-}
-
-.header {
-    // background-color: rgb(58, 58, 58) !important;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-
+    
     .title-area {
         display: flex;
         flex-direction: column;
         color: white;
+        margin-left: 40px;
+        
+        .header-title {
+            font-size: 14pt;
+            font-weight: bold;
+        }
+        
+        .header-subtitle {
+            font-size: 20pt;
+            font-family: 'Grand Hotel', cursive;
+        }
     }
 
-    .header-title {
-        font-size: 14pt;
-        font-weight: bold;
+    .navbar-toggler {
+        color: white;
+        background-color: white;
+        margin-right: 40px;
     }
-    .header-subtitle {
-        font-size: 18pt;
-        margin-top: -26px;
-        font-family: 'Grand Hotel', cursive;
-    }
-
 }
 
-.navbar-divisor {
-    color: white;
-}
 .carousel {
     width: 100%;
     background-color: blue;
@@ -71,11 +58,6 @@ footer {
     .carousel-image {
         width: 200px;
     }
-}
-
-// Bootstrap Classes :: Override
-.container {
-    padding: 60px 60px;
 }
 
 // Index
@@ -130,45 +112,119 @@ footer {
     }
 }
 
-#patrocinadores {
-    
-    empty-cells: hide;
-    // #galeria {
-    //     display: grid;
-    //     grid-template-columns: repeat(4, 1fr);
-    //     gap: 20px 0px;
+footer {
+    padding: 12px 20px;
+    background-color: rgb(39, 39, 39);
+    // background-color: rgb(112, 112, 112);
+    font-family: monospace;
+    font-size: 10pt;
+    color: rgb(235, 235, 235);
 
-    //     img {
-    //         width: 100%;
-    //     }
-    // }
+    p {
+        margin: 0;
+    }
 
+    #dev-url {
+        color: white;
+    }
 }
 
-@media screen and (max-width: 720px) {
+// Notícias
+.noticia {
+
+    width: 100%;
+
+    .imagem-noticia {
+
+        width: 100%;
+        height: 160px;
+        text-align: center;
+
+        img {
+            max-width: 100%;
+            max-height: 160px;
+        }
+    }
+}
+
+// PC or Wider
+@media screen and (min-width: 1024px) {
+    .header {
+        .title-area {
+            max-width: 80%;
+            margin: 10px 40px;
+
+            .header-title {
+                font-size: 16pt;
+            }
+            .header-subtitle {
+                font-size: 20pt;
+            }
+
+        }
+    }
+}
+// Tablet
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .header {
+
+        .title-area {
+            max-width: 80%;
+            margin: 10px 40px;
+
+            .header-title {
+                font-size: 16pt;
+            }
+            .header-subtitle {
+                font-size: 16pt;
+            }
+
+        }
+    }
+}
+// Mobile
+@media screen and (max-width: 767px) {
     .container {
         padding: 40px 30px;
     }
 
     .header {
-        // background-color: red !important;
         .title-area {
-            width: 50%;
+            max-width: 80%;
+            margin: 8px 10px;
+
+            .header-title {
+                font-size: 12pt;
+            }
+            .header-subtitle {
+                font-size: 12pt;
+            }
         }
-        .header-title {
-            font-size: medium;
-        }
-        .header-subtitle {
-            font-size: medium;
+
+        .navbar-toggler {
+            margin-right: 10px;
         }
     }
 
     #patrocinadores {
         #galeria {
-            gap: 6px 0px;
+            gap: 6px;
             grid-template-columns: repeat(2, 1fr);
-            
+            transition: none;
+            transform: none;
         }
+    }
+}
+
+
+
+// Printing Layout
+@media print {
+    // Esconder elementos
+    #body-header,
+    #body-footer,
+    #gerenciar-fichas {
+        display: none;
     }
 }
 
@@ -217,12 +273,8 @@ footer {
     margin-top: 60px !important;
 }
 
-// Printing Layout
-@media print {
-    // Esconder elementos
-    #body-header,
-    #body-footer,
-    #gerenciar-fichas {
-        display: none;
-    }
+// Bootstrap Classes :: Override
+
+.container {
+    padding: 60px 60px;
 }

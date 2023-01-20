@@ -3,13 +3,16 @@ const express = require("express")
 const { default: mongoose } = require("mongoose")
 const router = express.Router()
 
+
 // Models
 require("../models/FichaAtleta")
 const FichaAtleta = mongoose.model("fichaAtletas")
 
 // Routes
 router.get("/", (req, res) => {
-    res.render("test/index")
+    res.render("teste/index", {
+        headTitle: "Testes - "
+    })
 })
 
 router.post("/", (req, res) => {
@@ -23,7 +26,7 @@ router.post("/", (req, res) => {
     }else{
     }
 
-    res.redirect("/test")
+    res.redirect("/teste")
 
 })
 
@@ -89,6 +92,54 @@ router.get("/fichas/nova", (req, res, next) => {
             console.log("Erro ao salvar ficha: " + err)
         })
 
+})
+
+router.get("/criar_pdf", (req, res, next) => {
+    res.render("teste/criar_pdf", {
+        layout: "layouts/pdf",
+        usuarioExemplo: {
+            nome: "Usuário",
+            sobrenome: "Exemplo",
+            idade: 10,
+            estudante: true,
+            comidasFavoritas: ["frutas", "lasanha"]
+        }
+    })
+})
+
+router.get("/imprimir_pdf", (req, res, next) => {
+
+    let simOuNao = (entrada) => entrada === true ? "Sim" : "Não"
+    
+    res.render("teste/criar_pdf", {
+        layout: "layouts/pdf"
+    })
+
+    let usuarioExemplo = {
+        nome: "Usuário",
+        sobrenome: "Exemplo",
+        idade: 10,
+        estudante: true,
+        comidasFavoritas: ["frutas", "lasanha"]
+    }
+
+    const htmlTemplate = `
+        <h1>Dados do Usuário</h1>
+        <br>
+        <ul>
+            <li>Nome: ${usuarioExemplo.nome + " " + usuarioExemplo.sobrenome}</li>
+            <li>Idade: ${usuarioExemplo.idade}</li>
+            <li>É estudante? ${ simOuNao(usuarioExemplo.estudante) }</li>
+            <li>Comidas Favoritas: ${usuarioExemplo.comidasFavoritas}</li>
+        </ul>
+    `;
+
+
+    
+})
+
+router.get("/html2canvas", (req, res, next) => {
+    res.render("teste/html2canvas")
 })
 
 // Export

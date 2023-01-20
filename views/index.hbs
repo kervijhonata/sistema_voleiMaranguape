@@ -6,17 +6,17 @@
         {{>_messages}}
 
         {{#if user}}
-        <div class="row jumbotron mb-6 bg-primary text-light">
+        <div class="row jumbotron mb-6 text-light bg-dark">
             <h1 class="mb-4 text-center">Bem vindo(a), {{user.nome}}!</h1>
-            <p class="lead">Estamos muito felizes que você está aqui!</p>
+            <p class="lead">Estamos muito felizes de ter você aqui!</p>
             <hr>
-            <p>clique no botão abaixo para acessar o seu perfil</p>
+            <p class="text-center">Clique no botão abaixo para acessar o seu perfil</p>
             <p class="lead"></p>
             <p class="lead text-center">
-                <a href="/user/panel" role="button" class="btn btn-light btn-lg">Acesse seu perfil</a>
+                <a href="/{{user.nivel_usuario}}/panel/" role="button" class="btn btn-light btn-lg">Acessar seu perfil</a>
             </p>
             <p class="text-center">
-                Ou descubra o nosso <a href="/portal" class="text-light">portal de notícias</a>
+                ou acesse o nosso <a href="/portal" class="text-light">portal de notícias.</a>
             </p>
         </div>
         {{else}}
@@ -108,7 +108,7 @@
         <div id="patrocinadores" class="row mb-6">
             <h1>Nossos Patrocinadores</h1>
             <p class="lead">Conheça esta equipe incrível que torna nossos sonhos possíveis:</p>
-            <div id="galeria" class="col mb-4 image-gallery image-magnify">
+            <div id="galeria" class="col mb-4 image-gallery">
                 <img src="https://via.placeholder.com/200/ff4500/fff" alt="Placeholder Fill Image">
                 <img src="https://via.placeholder.com/200/ff4500/fff" alt="Placeholder Fill Image">
                 <img src="https://via.placeholder.com/200/ff4500/fff" alt="Placeholder Fill Image">

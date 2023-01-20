@@ -1,19 +1,15 @@
-{{>_header}}
-
-<main>
-    <div class="container">
-
-        <div class="mb-4" id="pdfContainer"> <!--pdfContainer-->
+<div class="container" id="pdfContainer">
+    <div class="mb-4" id="teste"> <!--pdfContainer-->
             <div class="row">
 
                 <div class="col-3">
                     <div class="row mb-2" style="display: flex; justify-content: center;">
-                        <img src="https://via.placeholder.com/120/f0c000/000.png?text=Imagem+da+federacao" alt="imagem da federação" style="width: 80%;">
+                        imagem da federacao
                     </div>
                     <div class="row">
                         <div>
                             <label for="numero-registro">Registro N°</label>
-                            <input type="text" name="numero-registro" class="form-control mb-2" readonly>
+                            <input type="text" name="numero-registro" class="form-control mb-2">
                         </div>
                         <div>
                             <label for="numero-transferencia">Transferência N°</label>
@@ -61,7 +57,7 @@
                     </div>
                 </div>
                 <div class="col-2" style="display: grid; align-content: center; justify-content: center;">
-                    <img src="https://via.placeholder.com/200/f0c000/000.png?text=Imagem+do+aluno" alt="imagem do aluno" class="text-center">
+                    imagem do alino
                 </div>
             </div>
         </div>
@@ -276,40 +272,5 @@
                 </div>
             </div>
         </div>
-
-        <div class="row mt-2 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4">
-                            Data: <hr>
-                        </div>
-                        <div class="col-8">
-                            Assinatura do Atleta: <hr>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" id="gerenciar-fichas">
-            <div class="col">
-                <a href="" role="button" class="btn btn-success" onclick="gerarPDF()">Imprimir</a> <!--gerarPDF-->
-                <a href="" role="button" class="btn btn-warning">Editar</a>
-                <a href="" role="button" class="btn btn-danger">Excluir</a>
-            </div>
-        </div>
-
-        {{!-- <div class="row" style="margin-top: 300px;">
-            <h3>Dados [[display teste]]</h3>
-            {{#each dadosFicha}}
-            <p>
-                {{this}}
-            </p>
-            {{/each}}
-        </div> --}}
-
-    </div>
-</main>
-
-{{>_footer}}
+</div>
+<button onclick="gerarPDF()">Print</button>

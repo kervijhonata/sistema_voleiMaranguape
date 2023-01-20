@@ -15,7 +15,28 @@ const isUserAuth = require("../helpers/userAuth")
 
 // Middleware Routes
 router.get("/", isUserAuth, (req, res) => {
-    res.redirect("/user/panel")
+    res.redirect("/atleta/panel")
+})
+
+router.get("/panel", isUserAuth, (req, res, next) => {
+
+    let userName = req.user.nome.split(" ")
+    let dataNascimento = req.user.data_nascimento.getDate() + "/" + req.user.data_nascimento.getMonth() + "/" + req.user.data_nascimento.getFullYear()
+
+    res.render("atleta/panel", {
+        headTitle: "Painel do Atleta | ",
+        user: {
+            nome_completo: req.user.nome,
+            primeiro_nome: userName[0],
+            sobrenome: userName[1],
+            id: req.user._id,
+            data_nascimento: dataNascimento,
+            email: req.user.email,
+            genero: req.user.genero,
+            eAtleta: true
+        }
+    })
+
 })
 
 router.get("/cadastrar", isUserAuth, (req, res) => {
@@ -69,41 +90,52 @@ router.post("/cadastrar", isUserAuth, (req, res) => {
         contato_extra: req.body.contato_extra
     }
 
-    FichaAtleta.find({cpf: formData.cpf}).lean().then((ficha) => {
-        if(ficha.length > 0) {
-            console.log(ficha)
-            req.flash("errorMessage", "Já existe um atleta cadastrado com este CPF, entre em contato com o administrador")
+    FichaAtleta.find({cpf: formData.cpf}).lean().then((fichas) => {
+
+        let fichasEncontradas = fichas.length // Conta a quantidade de registros
+
+        if(fichasEncontradas > 0) {
+
+            req.flash("errorMessage", "Já existe um atleta cadastrado com este CPF, entre em contato com o administrador para verificar o problema")
             res.redirect("/")
+
+            console.log(fichas)
+
         }else{
-            // Buscar quantidade de fichas para dar um numero de registro
-            const novaFicha = new FichaAtleta(formData)
-
-            FichaAtleta.find().lean().then((fichas) => {
-
-                let fichasEncontradas = fichas.length
-                console.log(fichasEncontradas)
-                console.log(fichas)
-
+            
+            // Atualizar usuário para atleta
+            Usuario.findOne({email: formData.email}).then((atleta) => {
+                
+                let novaFicha = new FichaAtleta(formData)
+    
                 novaFicha.numero_registro = fichasEncontradas
+                novaFicha.nivel_usuario = "atleta"
                 novaFicha.save()
+
+                atleta.nivel_usuario = "atleta"
+                atleta.save()
                 .then(() => {
+                    
                     req.flash("successMessage", "Ficha cadastrada com sucesso!")
-                    res.redirect("/user/panel")
+                    res.redirect("/atleta/panel")
                 })
                 .catch(err => {
-                    req.flash("errorMessage", "Erro ao salvar ficha, tente novamente")
-                    res.redirect("/atleta/cadastrar")
+
+                    req.flash("errorMessage", "Não foi possível criar a sua ficha, nenhum usuário associado à este email foi encontrado")
+                    res.redirect("/")
 
                     console.log("Erro ao salvar ficha: " + err)
                 })
 
             })
             .catch(err => {
-                console.log("Erro ao buscar pela quantidade de fichas: " + err)
+                req.flash("errorMessage", "Erro ao associar ficha ao usuário desta conta")
+                res.redirect("/atleta/cadastrar")
+
+                console.log("Erro ao salvar ficha: " + err)
             })
         }
     })
-    console.table(formData)
 })
 
 router.get("/ficha", isUserAuth, (req, res, next) => {

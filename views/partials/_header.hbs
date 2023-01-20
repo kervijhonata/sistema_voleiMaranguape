@@ -1,40 +1,37 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light header bg-dark" id="body-header">
+<nav class="navbar navbar-expand-lg navbar-light bg-light bg-dark header" id="body-header" data-bs-theme="dark">
   <div class="navbar-brand title-area">
-    <span class="header-title">Associação esportiva de Maranguape</span>
-    <br>
-    <span class="header-subtitle">Vôlei para Todos</span>
+    <p class="header-title">Associação esportiva de Maranguape</p>
+    <p class="header-subtitle">Vôlei para Todos</p>
   </div>
-  <div class="navbar-divisort">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav text-light" style="display: flex; align-items: center;">
-        <li class="nav-item active">
-          <a class="nav-link text-light" href="/">Início</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link text-light" href="/portal">Portal</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="/#">Doações</a>
-        </li>
-        {{#if user}}
-        <li class="nav-item">
-          <a href="/user/panel" class="nav-link"><button class="btn btn-secondary">Meu Perfil</button></a>
-        </li>
-        <li class="nav-item">
-          <a href="/logout" class="nav-link"><button class="btn btn-danger">Sair</button></a>
-        </li>
-        {{else}}
-        <li class="nav-item">
-          <a class="nav-link" href="/register"><button class="btn btn-primary btn-sm">Crie sua Conta</button></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login"><button class="btn btn-primary btn-sm">Entrar</button></a>
-        </li>
-        {{/if}}
-      </ul>
-    </div>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav text-light" style="display: flex; align-items: center;">
+      <li class="nav-item active">
+        <a class="nav-link text-light" href="/">Início</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link text-light" href="/portal">Portal</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="/#">Doações</a>
+      </li>
+      {{#if user}}
+      <li class="nav-item">
+        <a href="/{{user.nivel_usuario}}/panel/" class="nav-link"><button class="btn btn-secondary">Meu Perfil</button></a>
+      </li>
+      <li class="nav-item">
+        <a href="/logout" class="nav-link"><button class="btn btn-danger">Sair</button></a>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <a class="nav-link" href="/register"><button class="btn btn-primary btn-sm">Crie sua Conta</button></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login"><button class="btn btn-primary btn-sm">Entrar</button></a>
+      </li>
+      {{/if}}
+    </ul>
   </div>
 </nav>

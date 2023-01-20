@@ -14,7 +14,7 @@
                             {{#if user.funcao}}
                             <small>{{user.funcao}}</small>
                             {{else}}
-                            Usuário
+                            Administrador
                             {{/if}}
                         </p>
                     {{/if}}
@@ -26,60 +26,10 @@
                         <h1>Seus dados</h1>
                         <hr>
                         <p><strong>Nome</strong>: {{user.nome_completo}}</p>
-                        <p><strong>ID</strong>: {{user.id}}</p>
                         {{!-- <p><strong>ID</strong>: {{user.id}}</p> --}}
                         <p><strong>Data de Nascimento</strong>: {{user.data_nascimento}}</p>
                         <p><strong>Email</strong>: {{user.email}}</p>
                         <p><strong>Gênero</strong>: {{user.genero}}</p>
-                    {{/if}}
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col card">
-                <div class="card-body">
-                    
-                    <div class="row mt-2 mb-4 text-center">
-                        <h2>Área do Atleta</h2>
-                    </div>
-                    
-                    
-                    <div class="row mt-4 mb-4">
-                    {{#if user.eAtleta}}
-                        <div class="row mt-4">
-                            <div class="row">
-                                <h3>Suas fichas</h3>
-                            </div>
-
-                            <div class="card mb-1">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <strong>Ficha 01: </strong>Campeonato Maranguapense 2022.1
-                                        </div>
-                                        <div class="col-4">
-                                            <small class="text-right">Data: 12/05/2022</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <a href="/atleta/ficha" role="button" class="btn btn-primary btn-sm">Acessar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{else}}
-                        
-                        <div class="mb-2">
-                            <div class="text-center">
-                                <p class="lead">Preencha a <a href="/atleta/cadastrar" class="text-success">ficha de cadastro</a> com seus dados para competir junto de sua equipe.</p>
-                                <div class="col">
-                                    <a href="/atleta/cadastrar" role="button" class="btn btn-success btn-lg">Cadastrar-se como Atleta</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     {{/if}}
                 </div>
             </div>
