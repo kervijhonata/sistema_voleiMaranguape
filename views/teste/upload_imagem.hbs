@@ -1,0 +1,49 @@
+<div class="container">
+    <h1>teste</h1>
+    <hr>
+    <form action="/teste/upload" method="POST" enctype="multipart/form-data">
+        <div class="mb-2">
+            <label for="texto">
+                Texto:
+            </label>
+            <input type="text" name="texto" id="" class="form-control">
+        </div>
+
+        <div class="mb-2">
+            <label for="image-input">
+                <span>Imagem de Perfil:</span>
+                <div class="input-image-wrapper mt-2">
+                    <p id="message">Clique para adicionar</p>
+                    <img src="" alt="" id="image-preview" class="input-image-preview">
+                    <input type="file" name="imagem" class="form-control" accept="image/jpg, image/jpeg, image/png" id="image-input">
+                </div>
+            </label>
+        </div>
+
+        <div class="mb-2">
+        </div>
+
+        <div class="mb-2">
+            <button type="submit" class="btn btn-success" id="button-submit">Enviar</button>
+        </div>
+    </form>
+
+    <div class="row mt-4">
+    <hr>
+
+    {{#if texto}}
+    <p>{{texto}}</p>
+    {{else}}
+    <p>Aguardando envio de um título..</p>
+    {{/if}}
+
+    {{#if imagem}}
+    <img src="/img/upload/{{imagem}}" alt="" id="image-outpup-backend">
+    {{else}}
+    <p>Aguardando imagem..</p>
+    {{/if}}
+
+
+</div>
+
+<script type="text/javascript" src="/js/userImagePreview.js"></script>

@@ -5,7 +5,11 @@
             <div class="col col-4">
                 <div class="text-center">
                     <div class="image-place text-center mt-2 mb-4">
+                        {{#if user}}
+                        <img src="/img/upload/users/{{user.imagem_perfil}}" alt="" style="border-radius: 50%;" width="120px" height="120px">
+                        {{else}}
                         <img src="https://via.placeholder.com/150/00ffc6" alt="" style="border-radius: 50%;">
+                        {{/if}}
                     </div>
                     <a href="" role="button" class="btn btn-success link btn-sm mb-2">Alterar Imagem do Perfil</a>
                     {{#if user}}

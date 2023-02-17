@@ -1,14 +1,14 @@
 {{>_header}}
 
-<main>
-    <div class="container">
+    {{!-- antique  --}}
+    <div class="container" id="pdfContainer">
 
-        <div class="mb-4" id="pdfContainer"> <!--pdfContainer-->
+        <div class="mb-4"> <!--pdfContainer-->
             <div class="row">
 
                 <div class="col-3">
                     <div class="row mb-2" style="display: flex; justify-content: center;">
-                        <img src="https://via.placeholder.com/120/f0c000/000.png?text=Imagem+da+federacao" alt="imagem da federação" style="width: 80%;">
+                        <img src="/img/logo.jpg" alt="imagem do aluno" class="text-center" width="120px" height="260px">
                     </div>
                     <div class="row">
                         <div>
@@ -17,13 +17,13 @@
                         </div>
                         <div>
                             <label for="numero-transferencia">Transferência N°</label>
-                            <input type="text" name="numero-transferencia" class="form-control" placeholder="apenas entre federações">
+                            <input type="text" name="numero-transferencia" class="form-control">
                         </div>
                     </div>
                 </div>
-                <div class="col-7" style="display: grid; align-content: space-between;">
+                <div class="col-7" style="display: grid; align-content: space-between; justify-items: center;">
                     <div class="">
-                        <h2 class="text-center">Certificado de Atleta</h2>
+                        <h2 class="text-align: center;">Certificado de Atleta</h2>
                     </div>
                     <div class="">
                         <div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="col-2" style="display: grid; align-content: center; justify-content: center;">
-                    <img src="https://via.placeholder.com/200/f0c000/000.png?text=Imagem+do+aluno" alt="imagem do aluno" class="text-center">
+                    <img src="/img/logo.jpg" alt="imagem do aluno" class="text-center" width="260" height="260">
                 </div>
             </div>
         </div>
@@ -240,7 +240,7 @@
 
         </div>
         
-        <div class="row mt-2">
+        <div class="row mt-4">
             <p style="margin-bottom: 6px;"><strong>Registro, Inscrição ou Renovação</strong>: Assinar campos 1 e 2 </p>
             <p style="margin-bottom: 6px;"><strong>Transferência entre clubes da mesma federação</strong>: Assinar campos 1, 2 e 3</p>
             <p style="margin-bottom: 6px;"><strong>Transferência entre clubes de federações diferentes</strong>: Assinar campos 1, 2, 3 e 4</p>
@@ -250,7 +250,7 @@
             <p style="margin-bottom: 6px;"><strong>Cancelamento de cessão temporária em uma federação diferente</strong>: Assinar campos 3 e 4</p>
         </div>
 
-        <div class="row">
+        <div class="row mt-4">
             <div class="card">
                 <div class="card-body">
                     <p>Tempo de duração de <span class="blank_space" style="margin-left: 200px;"></span> De <span class="blank_space" style="margin-left: 200px;"></span> Até</p>
@@ -292,24 +292,20 @@
             </div>
         </div>
 
+    </div>
+    <div class="container">
         <div class="row" id="gerenciar-fichas">
             <div class="col">
-                <a href="" role="button" class="btn btn-success" onclick="gerarPDF()">Imprimir</a> <!--gerarPDF-->
+                <button id="btn-gerador-pdf" class="btn btn-success">Imprimir</button>
                 <a href="" role="button" class="btn btn-warning">Editar</a>
                 <a href="" role="button" class="btn btn-danger">Excluir</a>
             </div>
         </div>
-
-        {{!-- <div class="row" style="margin-top: 300px;">
-            <h3>Dados [[display teste]]</h3>
-            {{#each dadosFicha}}
-            <p>
-                {{this}}
-            </p>
-            {{/each}}
-        </div> --}}
-
     </div>
 </main>
-
 {{>_footer}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="/js/gerarPDF.js"></script>

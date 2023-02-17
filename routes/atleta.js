@@ -1,7 +1,7 @@
 // Modules
 const express = require("express")
-const mongoose = require("mongoose")
 const router = express.Router()
+const mongoose = require("mongoose")
 
 // Models
 require("../models/Usuario")
@@ -12,9 +12,10 @@ const FichaAtleta = mongoose.model("fichaAtletas")
 
 // Helpers
 const isUserAuth = require("../helpers/userAuth")
+const atletaLogado = require("../helpers/eAtleta")
 
 // Middleware Routes
-router.get("/", isUserAuth, (req, res) => {
+router.get("/", atletaLogado, (req, res) => {
     res.redirect("/atleta/panel")
 })
 
@@ -33,7 +34,8 @@ router.get("/panel", isUserAuth, (req, res, next) => {
             data_nascimento: dataNascimento,
             email: req.user.email,
             genero: req.user.genero,
-            eAtleta: true
+            eAtleta: true,
+            imagem_perfil: req.user.imagem_perfil
         }
     })
 

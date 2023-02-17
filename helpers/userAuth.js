@@ -4,7 +4,7 @@ function isUserAuth(req, res, next) {
     if( req.isAuthenticated() ) {
         next()
     }else{
-        req.flash("errorMessage", "Você precisa estar logado para acessar o sistema")
+        req.flash("errorMessage", "Você precisa fazer login para acessar o sistema")
         res.redirect("/")
     }
 }

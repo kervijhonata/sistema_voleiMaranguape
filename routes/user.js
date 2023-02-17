@@ -12,14 +12,15 @@ const FichaAtleta = mongoose.model("fichaAtletas")
 
 // Helpers
 const isUserAuth = require("../helpers/userAuth")
+const usuarioPadraoLogado = require("../helpers/eUsuarioPadrao")
 
 // Middleware Routes
-router.get("/", isUserAuth, (req, res) => {
+router.get("/", usuarioPadraoLogado, (req, res) => {
     res.redirect("/user/panel")
 })
 
 
-router.get("/panel", isUserAuth, (req, res) => {
+router.get("/panel", usuarioPadraoLogado, (req, res) => {
 
     let userName = req.user.nome.split(" ")
     let dataNascimento = req.user.data_nascimento.getDate() + "/" + req.user.data_nascimento.getMonth() + "/" + req.user.data_nascimento.getFullYear()
@@ -33,7 +34,8 @@ router.get("/panel", isUserAuth, (req, res) => {
             id: req.user._id,
             data_nascimento: dataNascimento,
             email: req.user.email,
-            genero: req.user.genero
+            genero: req.user.genero,
+            imagem_perfil: req.user.imagem_perfil
         }
     })
     

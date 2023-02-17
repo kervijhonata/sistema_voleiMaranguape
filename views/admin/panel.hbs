@@ -2,57 +2,64 @@
 <main>
     <div class="container">
         <div class="row mb-4">              
-            <div class="col col-4">
-                <div class="text-center">
-                    <div class="image-place text-center mt-2 mb-4">
-                        <img src="https://via.placeholder.com/150/00ffc6" alt="" style="border-radius: 50%;">
-                    </div>
-                    <a href="" role="button" class="btn btn-success link btn-sm mb-2">Alterar Imagem do Perfil</a>
-                    {{#if user}}
-                        <h3>{{user.primeiro_nome}} {{user.sobrenome}}</h3>
-                        <p>
-                            {{#if user.funcao}}
-                            <small>{{user.funcao}}</small>
-                            {{else}}
-                            Administrador
-                            {{/if}}
-                        </p>
-                    {{/if}}
-                </div>
-            </div>
-            <div class="col col-lg-8">
-                <div class="">
-                    {{#if user}}
-                        <h1>Seus dados</h1>
-                        <hr>
-                        <p><strong>Nome</strong>: {{user.nome_completo}}</p>
-                        {{!-- <p><strong>ID</strong>: {{user.id}}</p> --}}
-                        <p><strong>Data de Nascimento</strong>: {{user.data_nascimento}}</p>
-                        <p><strong>Email</strong>: {{user.email}}</p>
-                        <p><strong>Gênero</strong>: {{user.genero}}</p>
-                    {{/if}}
-                </div>
+            <div class="col">
+                <h1>Painel administrativo</h1>
+                <hr>
             </div>
         </div>
 
         <div class="row mb-4">
-            <div class="col card">
-                <div class="card-body">
-                    
-                    <div class="mt-2 mb-4 text-center">
-                        <h2>Configurações do perfil</h2>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col">
-                            <a href="" role="button" class="btn btn-warning link">Alterar seus dados</a>
-                            <a href="" role="button" class="btn btn-warning link">Alterar sua senha</a>
-                            <a href="" role="button" class="btn btn-danger  link">Excluir sua conta</a>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="">Gerenciar usuários do sistema</h2>
+                        <hr>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h3 class="">Usuários</h3>
+                                <hr>
+                                <a href="/admin/lista/usuarios"><button class="btn btn-primary">Consultar lista de usuários</button></a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="">Atletas / Fichas</h3>
+                                <hr>
+                                <a href="/admin/lista/atletas"><button class="btn btn-primary">Consultar lista de atletas</button></a>
+                                <a href="/admin/cadastrar/atleta"><button class="btn btn-success">Cadastrar novo atleta</button></a>                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="">Gerenciar publicações</h2>
+                        <hr>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h3>Postagens</h3>
+                                <hr>
+                                <a href=""><button class="btn btn-primary">Listar postagens</button></a>
+                                <a href=""><button class="btn btn-success">Escrever nova postagem</button></a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h3>Categorias</h3>
+                                <hr>
+                                <a href=""><button class="btn btn-primary">Listar categorias</button></a>
+                                <a href=""><button class="btn btn-success">Criar nova categoria</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </main>
 {{>_footer}}

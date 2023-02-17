@@ -1,3 +1,42 @@
+async function gerarPDF(e) {
+
+    e.preventDefault()
+
+    const html = document.querySelector("#pdfContainer")
+    var htmlSize = html.style.width
+
+    // Espandir tamanho do HTML
+    html.style.width = '1400px'
+
+    await html2canvas(html, {useCORS: true, allowTaint: true}).then( (canvas) => {
+        var imgData = canvas.toDataURL('image/png')
+        var doc = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+        })
+
+        var width = doc.internal.pageSize.getWidth();
+        var height = doc.internal.pageSize.getHeight();
+
+        console.log("width: "+width)
+        console.log("height: "+height)
+
+        doc.addImage(imgData, 'PNG', 10, 6, width-20, height);
+        doc.save("pdfTeste.pdf")
+
+        // Voltar para o tamanho original
+        html.style.width = htmlSize
+    })
+
+}
+
+const btn = document.querySelector("#btn-gerador-pdf")
+btn.addEventListener('click', gerarPDF)
+
+// function gerarPDF(e) {
+//     console.log(e)
+// }
 
 // function gerarPDF() {
 
@@ -334,34 +373,4 @@
 //     doc.save("pdfTeste.pdf")
 
     
-// }
-
-function gerarPDF(e) {
-
-    e.preventDefault()
-
-    const html = document.querySelector("#pdfContainer")
-
-    html2canvas(html, {enableCORS: true}).then( (canvas) => {
-        var imgData = canvas.toDataURL('image/png')
-        var doc = new jsPDF('p', 'mm')
-        doc.addImage(imgData, 'PNG', 10, 10);
-        doc.save("pdfTeste.pdf")
-    })
-}
-
-// function gerarPDF() {
-
-//     alert("Gerando")
-    
-//     const doc = new jsPDF()
-
-//     const html = document.querySelector("#pdfContainer").innerHTML
-    
-//     doc.fromHTML(html)
-
-//     doc.save("pdfTeste.pdf")
-    
-//     alert("PDF gerado com sucesso!")
-
 // }

@@ -1,0 +1,25 @@
+{{imagem}}
+
+<div class="container">
+
+    <div class="mb-4">
+        <strong class="mb-2">Alertas:</strong>
+        {{#each alertaPositivo}}
+            <p class="alert alert-success">{{this}}</p>
+        {{/each}}
+
+        {{#each alertaNegativo}}
+            <p class="alert alert-danger">{{this}}</p>
+        {{/each}}
+    </div>
+
+    <div class="mt-2">
+        {{#each img}}
+            <h1>titulo: {{this.title}}</h1>
+            <img src="/img/upload/{{this.imageName}}" alt="">
+            <img src="{{this.fullPath}}" alt="">
+
+            <p>{{this.fullPath}}</p>
+        {{/each}}
+    </div>
+</div>

@@ -8,7 +8,7 @@
     {{/each}}
     
     <h1 class="mb-4">Crie sua Conta</h1>
-    <form action="/register" class="card" method="post">
+    <form action="/register" class="card" method="post" enctype="multipart/form-data">
         <div class="card-body">
             <h3 class="mb-4 mt-4 text-center">Preencha seus dados</h3>
             <div class="mb-2">
@@ -53,26 +53,27 @@
                 <p class="form-text" id="password-warn"></p>
             </div>
 
+            {{!-- <div class="mb-2">
+                <label for="user_image-input">Escolha uma imagem de perfil</label>
+                <input type="file" name="" class="form-control" accept="image/jpeg, image/png, image/jpg" id="user_image-input">
+            </div> --}}
+
+            <div class="mb-2">
+                <label for="image-input">
+                    <span>Imagem de Perfil:</span>
+                    <div class="input-image-wrapper mt-2">
+                        <p id="message">Clique para adicionar</p>
+                        <img src="" alt="" id="image-preview" class="input-image-preview">
+                        <input type="file" name="user_image" class="form-control" accept="image/jpg, image/jpeg, image/png" id="image-input">
+                    </div>
+                </label>
+            </div>
+
             {{!-- <hr> --}}
             <button class="btn btn-success mt-2" type="submit">Cadastrar</button>
         </div>
     </form>
 </div>
 
-<div class="container">
-    {{#if userData}}
-
-    <p><strong>name</strong>: {{userData.name}}</p>
-    <p><strong>birthday</strong>: {{userData.birthday}}</p>
-    <p><strong>gender</strong>: {{userData.gender}}</p>
-    <p><strong>email</strong>: {{userData.email}}</p>
-    <p><strong>password</strong>: {{userData.password}}</p>
-
-    {{else}}
-
-    <p>Aguardando Envio...</p>
-
-    {{/if}}
-</div>
-
 {{>_footer}}
+<script src="/js/userImagePreviewer.js"></script>

@@ -24,6 +24,11 @@ const Usuario = new Schema({
         type: String,
         required: true,
     },
+    imagem_perfil: {
+        type: String,
+        required: true,
+        default: "imagem-usuariovazio.png"
+    },
     nivel_usuario: {
         type: String,
         default: "usuario" // "[usuario, atleta, admin]"

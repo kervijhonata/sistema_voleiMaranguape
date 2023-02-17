@@ -1,0 +1,30 @@
+{{>_header}}
+<main>
+    <div class="container">
+        <div class="row mb-4">              
+            <div class="col">
+                <h1>Lista de Atletas</h1>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            {{#each fichas}}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h3>Nome: {{this.nome}}</h3>
+                    <p>Data de nascimento: {{this.data_nascimento}}</p>
+                    <p>Email: {{this.email}}</p>
+                    <p>Gênero: {{this.genero}}</p>
+                    <hr>
+                    <button class="btn btn-success">verificar ficha</button>
+                    <button class="btn btn-success">editar</button>
+                    <button class="btn btn-danger">excluir</button>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+
+    </div>
+</main>
+{{>_footer}}

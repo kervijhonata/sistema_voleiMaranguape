@@ -8,7 +8,10 @@ const session = require("express-session")
 const flash = require("connect-flash")
 const bcrypt = require("bcrypt")
 const passport = require('passport')
+const multer = require('multer') //Multer
 
+// Helpers
+const atletaLogado = require("./helpers/eAtleta")
 
 // Server Info
 const app = express()
@@ -58,6 +61,21 @@ const SERVER_INFO = {
     app.use(express.urlencoded({extended: true}))
     app.use(express.json())
 
+    // Multer Middleware
+    const storage = multer.diskStorage({
+        destination: function(req, file, cb) {
+            cb(null, path.join(__dirname, './public/img/upload/users/'))
+        },
+        filename: function(req, file, cb) {
+            const suffix = Date.now() + '-' + Math.round( Math.random() * 1E9 )
+            cb(null, `${file.fieldname}-${suffix}.png`)
+        }
+    })
+    
+    const upload = multer({
+        storage: storage
+    })
+
     // View Engine :: Handlebars
     app.engine("hbs", hbs.express4({
         partialsDir: path.join(__dirname, '/views/partials'),
@@ -78,6 +96,8 @@ const SERVER_INFO = {
         console.log("Erro ao conectar ao mongoose: " + err)
     })
 
+// Helpers
+const isUserAuth = require("./helpers/userAuth")
 
 // Routes
 app.get("/", (req, res, next) => {
@@ -141,14 +161,15 @@ app.get("/register", (req, res) => {
     res.render("register")
 })
 
-app.post("/register", (req, res) => {
+app.post("/register", upload.single('user_image'), (req, res) => {
 
     let formData = {
         name: req.body.user_name,
         birthday: req.body.user_birthday,
         gender: req.body.user_gender,
         email: req.body.user_email,
-        password: req.body.user_password // Recebe um Array com dois campos de senha [0::senha, 1::repitaSenha]
+        password: req.body.user_password, // Recebe um Array com dois campos de senha [0::senha, 1::repitaSenha]
+        user_image: req.file
     }
     
     console.log(formData)
@@ -197,13 +218,19 @@ app.post("/register", (req, res) => {
             formErrors.push({text: "As senhas estão diferentes, corrija e tente novamente"})
         }
 
+        // Imagem
+        if(typeof formData.user_image == undefined || formData.user_image == "" || formData.user_image == null || formData.user_image == false || formData.user_image.length <= 0) {
+            formErrors.push({text: "Por favor, selecione uma imagem de perfil e tente novamente"})
+        }
+
     // Erros detectados
     if(formErrors.length > 0){
         res.render("register", {
             formErrors: formErrors,
             userData: formData
         })
-    }else{
+    }
+    else{
 
         Usuario.findOne({email: formData.email}).lean().then((usuario) => {
             
@@ -222,7 +249,8 @@ app.post("/register", (req, res) => {
                     data_nascimento: formData.birthday,
                     genero: formData.gender,
                     email: formData.email,
-                    nivel_usuario: "usuario"
+                    nivel_usuario: "usuario",
+                    imagem_perfil: formData.user_image.filename
                 })
 
                 bcrypt.genSalt(10, (error, salt) => {
@@ -250,6 +278,26 @@ app.post("/register", (req, res) => {
     }
 })
 
+app.get("/panel", (req, res, next) => {
+    
+    if(req.user) {
+
+        if(req.user.nivel_usuario == "usuario"){
+            res.redirect("/user/panel")
+        }
+        if(req.user.nivel_usuario == "atleta"){
+            res.redirect("/atleta/panel")
+        }
+        if(req.user.nivel_usuario == "admin"){
+            res.redirect("/admin/panel")
+        }
+    }else {
+        req.flash("errorMessage", "Você precisa estar logado para acessar o sistema")
+        res.redirect("/")
+    }
+
+})
+
 // External routes
 const teste = require("./routes/teste")
 app.use("/teste", teste)
@@ -262,6 +310,12 @@ app.use("/user", user)
 
 const atleta = require("./routes/atleta")
 app.use("/atleta", atleta)
+
+// const admin = require("./routes/admin")
+// app.use("/admin", admin)
+
+const admin = require("./routes/admin")
+app.use("/admin", admin)
 
 // Server Listener
 app.listen(SERVER_INFO.PORT, () => {
