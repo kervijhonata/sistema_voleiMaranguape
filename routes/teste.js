@@ -219,6 +219,19 @@ router.get("/imagem/:imgName", (req, res, next) => {
     })
 })
 
+router.get("/data", (req, res, next) => {
+
+    const {longDateToShort} = require("../helpers/dates")
+    let data = new Date()
+    let dataHoje = data.getDate()
+
+    res.render("teste/data", {
+        data: data,
+        dataBR: longDateToShort(data)
+    })
+
+
+})
 
 // Export
 module.exports = router

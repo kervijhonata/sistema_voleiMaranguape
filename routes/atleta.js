@@ -145,7 +145,8 @@ router.get("/ficha", isUserAuth, (req, res, next) => {
     FichaAtleta.findOne({nome: req.user.nome}).lean().then((ficha) => {
         if(ficha) {
             res.render("atleta/ficha_atleta", {
-                dadosFicha: ficha
+                dadosFicha: ficha,
+                imagem_perfil: req.user.imagem_perfil
             })
         }else{
             req.flash("errorMessage", "Nenhuma ficha encontrada, cadastre uma ficha!")

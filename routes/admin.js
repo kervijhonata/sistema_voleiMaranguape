@@ -11,6 +11,7 @@ const FichaAtleta = mongoose.model('fichaAtletas')
 // Helpers
 const isUserAuth = require("../helpers/userAuth")
 const adminLogado = require("../helpers/eAdmin")
+const {longDateToShort} = require("../helpers/dates")
 
 // Middleware
 router.get("/", adminLogado, (req, res, next) => {
@@ -30,19 +31,6 @@ router.get("/lista/usuarios", (req, res, next) => {
     Usuario.find().lean().then((usuarios) => {
 
         const listaUsuarios = []
-
-        function longDateToShort(longDate) {
-            
-            let dia = longDate.getDate()
-            let mes = longDate.getMonth()
-            let ano = longDate.getFullYear()
-
-            dia < 9 ? dia = '0' + dia : dia
-            mes < 9 ? mes = '0' + mes : mes
-            
-            return `${dia}/${mes}/${ano}`
-            
-        }
 
         usuarios.forEach(usuario => {
             usuario.data_nascimento = longDateToShort(usuario.data_nascimento)

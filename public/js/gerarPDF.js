@@ -13,7 +13,8 @@ async function gerarPDF(e) {
         var doc = new jsPDF({
             orientation: 'p',
             unit: 'mm',
-            format: 'a4'
+            format: 'a4',
+            dpi: 144,
         })
 
         var width = doc.internal.pageSize.getWidth();
