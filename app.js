@@ -98,6 +98,7 @@ const SERVER_INFO = {
 
 // Helpers
 const isUserAuth = require("./helpers/userAuth")
+const mailer = require("./helpers/mailer")
 
 // Routes
 app.get("/", (req, res, next) => {
@@ -276,6 +277,82 @@ app.post("/register", upload.single('user_image'), (req, res) => {
             res.redirect("/")
         })
     }
+})
+
+app.get("/passwordrecovery", (req, res, next) => {
+    res.render("passwordRecovery")
+})
+
+app.post("/passwordrecovery/send_email", (req, res, next) => {
+    
+    // Captura o email do form
+    let {email} = req.body
+
+    try {
+        
+        const crypto = require("crypto")
+        const token = crypto.randomBytes(20).toString('hex')
+    
+        Usuario.findOne({email: email}).then((usuarioEncontrado) => {
+            if(usuarioEncontrado){
+
+                // Importa o módulo de envio de emails
+                // const mailer = require("./helpers/mailer")
+
+                // Cria um limite de tempo para validação do token
+                const tempo = new Date()
+                const tempoExpiracao = 1 //Uma hora
+                tempo.setHours(tempo.getHours() + tempoExpiracao)
+
+                // Adiciona o token e seu tempo de expiração ao usuário
+                usuarioEncontrado.passwordTokenReset = token
+                usuarioEncontrado.passwordResetExpires = tempoExpiracao
+
+                usuarioEncontrado
+                .save()
+                .then(() => {
+                    console.log("Dados salvos com sucesso")
+
+                    // envia o email
+                    mailer
+                    .sendMail({
+                        to: email,
+                        from: "kervij@gmail.com",
+                        template: "resetPassword",
+                        context: {
+                            token : token
+                        }
+                    })
+                    .then(() => {
+                        req.flash("successMessage", "Email enviado com sucesso, verifique sua caixa de Email")
+                        res.redirect("/passwordrecovery")
+                    })
+                    .catch((err) => {
+                        req.flash("errorMessage", "Erro ao enviar email de recuperação, tente novamente")
+                        res.redirect("/passwordrecovery")
+                        console.log(err)
+                    })
+
+                })
+                .catch((err) => {
+                    req.flash("errorMessage", "Erro ao processar seus dados, tente novamente")
+                    res.redirect("/passwordrecovery")
+                    console.log(err)
+                })
+
+            }
+            else{
+                req.flash("errorMessage", "Nenhum usuário encontrado")
+                res.redirect("/passwordrecovery")
+            }
+        })
+        
+    }
+    catch(err) {
+        req.flash("errorMessage", "Houve um erro ao acessar página, tente novamente")
+        res.status(400).redirect("/login")
+    }
+
 })
 
 app.get("/panel", (req, res, next) => {

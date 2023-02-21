@@ -32,6 +32,16 @@ const Usuario = new Schema({
     nivel_usuario: {
         type: String,
         default: "usuario" // "[usuario, atleta, admin]"
+    },
+    passwordTokenReset: {
+        type: String,
+        select: false,
+        required: false
+    },
+    passwordResetExpires: {
+        type: Date,
+        select: false,
+        required: false
     }
 })
 
