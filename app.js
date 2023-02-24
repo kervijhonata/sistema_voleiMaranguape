@@ -81,15 +81,12 @@ const SERVER_INFO = {
         partialsDir: path.join(__dirname, '/views/partials'),
         defaultLayout: path.join(__dirname, '/views/layouts/main')
     }))
-    // app.engine("handlebars", handlebars.engine({
-    //     partialsDir: path.join(__dirname, '/views/partials'),
-    //     defaultLayout: path.join(__dirname, '/views/layouts/main')
-    // }))
     
     app.set("view engine", "hbs")
     app.set('views', path.join(__dirname + "/views"));
 
     // Mongoose
+    mongoose.set("strictQuery", true) // Disabling deprecation warn in mongoose 6
     mongoose.connect(`mongodb://${SERVER_INFO.HOST}/voleiMaranguape`).then(() => {
         console.log("Mongoose conectado com Sucesso!")
     }).catch((err) => {
@@ -191,9 +188,6 @@ app.post("/register", upload.single('user_image'), (req, res) => {
         if(typeof formData.birthday == undefined || formData.birthday == "" || formData.birthday == null || formData.birthday == false) {
             formErrors.push({text: "Insira uma data de nascimento"})
         }
-        // if(typeof formData.birthday.length < 2 || formData.birthday.length > 120){
-        //     formErrors.push({text: "Insira um NOME entre 2 e 120 caracteres"})
-        // }
         
         // Gênero
         if(typeof formData.gender == undefined || formData.gender == "" || formData.gender == null || formData.gender == false) {
@@ -297,7 +291,6 @@ app.post("/passwordrecovery/send_email", (req, res, next) => {
             if(usuarioEncontrado){
 
                 // Importa o módulo de envio de emails
-                // const mailer = require("./helpers/mailer")
 
                 // Cria um limite de tempo para validação do token
                 const tempo = new Date()
@@ -306,7 +299,7 @@ app.post("/passwordrecovery/send_email", (req, res, next) => {
 
                 // Adiciona o token e seu tempo de expiração ao usuário
                 usuarioEncontrado.passwordTokenReset = token
-                usuarioEncontrado.passwordResetExpires = tempoExpiracao
+                usuarioEncontrado.passwordResetExpires = tempo
 
                 usuarioEncontrado
                 .save()
@@ -325,7 +318,8 @@ app.post("/passwordrecovery/send_email", (req, res, next) => {
                     })
                     .then(() => {
                         req.flash("successMessage", "Email enviado com sucesso, verifique sua caixa de Email")
-                        res.redirect("/passwordrecovery")
+                        res.redirect("/passwordrecovery/reset")
+                        console.log("Email enviado com sucesso")
                     })
                     .catch((err) => {
                         req.flash("errorMessage", "Erro ao enviar email de recuperação, tente novamente")
@@ -353,6 +347,96 @@ app.post("/passwordrecovery/send_email", (req, res, next) => {
         res.status(400).redirect("/login")
     }
 
+})
+
+app.get("/passwordrecovery/reset", (req, res, next) => {
+
+    res.render("resetpassword")
+
+})
+
+app.post("/passwordrecovery/reset", (req, res, next) => {
+
+    let formData = {
+        password: req.body.password,
+        email: req.body.email,
+        token: req.body.token
+    }
+
+    let formErrors = []
+
+    // Validar campos do formulário
+    if(typeof formData.password == undefined || formData.password == "" || formData.password == null || formData.password == false) {
+        formErrors.push({text: "Insira sua senha"})
+    }
+    if(formData.password[0].length < 8 || formData.password[0].length > 30){
+        formErrors.push({text: "Insira uma senha entre 8 e 30 caracteres"})
+    }
+    if(formData.password[0] !== formData.password[1]){
+        formErrors.push({text: "As senhas estão diferentes, corrija e tente novamente"})
+    }
+    // Email
+    if(typeof formData.email == undefined || formData.email == "" || formData.email == null || formData.email == false) {
+        formErrors.push({text: "Por favor, insira o seu email e tente novamente"})
+    }
+    if(formErrors.length > 0){
+        res.render("passwordRecovery", {
+            formErrors: formErrors,
+            userData: formData
+        })
+        return next()
+    }
+
+    Usuario.findOne({email: formData.email}).select('passwordTokenReset passwordResetExpires').then((usuarioEncontrado) => {
+        if(usuarioEncontrado) {
+
+            let now = new Date()
+
+            if(usuarioEncontrado.passwordTokenReset != formData.token){
+
+                req.flash("errorMessage", "Não foi possível validar este token, tente novamente")
+                res.redirect("/passwordrecovery")
+
+            }
+            if(now > usuarioEncontrado.passwordResetExpires){
+
+                req.flash("errorMessage", "O tempo de utilização deste token expirou, tente novamente")
+                res.redirect("/passwordrecovery")
+
+            }
+            else{
+
+                // Encripta a sena
+                bcrypt.genSalt(10, (error, salt) => {
+                    bcrypt.hash(formData.password[0], salt, (error, hash) => {
+                        if(error) {
+                            req.flash("errorMessage", "Houve um erro ao alterar a sua senha, tente novamente")
+                            res.redirect("/passwordrecovery")
+                        }else{
+                            usuarioEncontrado.senha = hash
+                            // Salva os dados do usuário
+                            usuarioEncontrado.save().then(() => {
+                                req.flash("successMessage", "Senha alterada com sucesso!")
+                                res.redirect("/")
+                            })
+                            .catch((err) => {
+                                req.flash("errorMessage", "Houve um erro ao alterar sua senha, por favor, entre em contato com o administrador do sistema")
+                                res.redirect("/passwordrecovery")
+                            })
+                        }
+                    })
+                })
+            }
+        }
+        else{
+            req.flash("errorMessage", "Este endereço de email não foi encontrado no sistema.")
+            res.redirect("/")
+        }
+    })
+    .catch((err) => {
+        req.flash("errorMessage", "Ocorreu um erro interno ao recuperar senhas, entre em contato com o administrador")
+        res.redirect("/")
+    })
 })
 
 app.get("/panel", (req, res, next) => {
